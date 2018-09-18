@@ -2,7 +2,8 @@
   "name": "sweeper-mpp",
   "version": "0.0.0",
   "dependencies": {
-    "mpp-client-xt": "1.1.0"
+    "mpp-client-xt": "1.1.0",
+    "discord.js":"*"
   },
   "engines": {
     "node": ">=0.10",
