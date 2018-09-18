@@ -1,6 +1,7 @@
 const Client = require('mpp-client-xt');
 var gClient = new Client("ws://www.multiplayerpiano.com:443");
-gClient.setChannel('lobby');
+var defaultChannel = "test/sweepcenter";
+gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
 var ey = 0;
@@ -15,7 +16,7 @@ gClient.on('a',function(msg){
      gClient.say('Sweeping to '+msg.a.split(' ').slice(1).join(' ')+' is now ready to go')
      issweeping = true;
      gClient.setChannel(msg.a.split(' ').slice(1).join(' '))
-     setTimeout(function(){gClient.say('Well thats sweeped too much. Bye');gClient.setChannel('lobby');issweeping = false;},50000)
+     setTimeout(function(){gClient.say('Well thats sweeped too much. Bye');gClient.setChannel(defaultChannel);issweeping = false;},50000)
    }
    if (msg.a == "b!rules"){
       gClient.say("1. do not spam commands. but that is too annoying")
@@ -30,6 +31,13 @@ gClient.on('a',function(msg){
      
      banned.push(msg.a.split(' ')[1])
      gClient.say("sucessfully banned")
+     
+   }
+    
+   if (msg.a.split(' ')[0] == "b!default" && msg.p.name == "<anonymouser>") {
+     gClient.say('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
+     defaultChannel = msg.a.split(' ').slice(1).join(' ')
+     gClient.setChannel(defaultChannel)
      
    }
    }
