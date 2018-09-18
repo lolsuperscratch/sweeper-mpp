@@ -2,7 +2,8 @@
   "name": "sweeper-mpp",
   "version": "0.0.0",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "start": "node app.js"
   },
   "dependencies": {
     "mpp-client-xt": "1.1.0",
