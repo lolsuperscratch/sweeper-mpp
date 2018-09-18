@@ -78,8 +78,8 @@ if (message.content.split(' ')[0] == "b!sweep") {
      gClient.setChannel(defaultChannel)
      
    }
-   }
-})
+   })
+
 bot.on('ready',function(){
 bot.user.setActivity("b!help", {
   type: "PLAYING"
