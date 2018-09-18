@@ -17,10 +17,10 @@ gClient.on('a',function(msg){
      setTimeout(function(){gClient.say('Well thats sweeped too much. Bye');gClient.setChannel('lobby');issweeping = false;},50000)
    }
    if (msg.a == "b!rules"){
-      gClient.say("1. do not spam b!sweep. but that is too annoying")
+      gClient.say("1. do not spam commands. but that is too annoying")
       gClient.say("2. after you join other channels, make sure use b!sweep [channel name you joined] in lobby")
-      setTimeout(function () {gClient.say("3. stop doing b!sweep lobby, but it is inappropriate")},30000)
-      setTimeout(function () {gClient.say("4. dont ban broom after using the command, if you do it, but it is inappropriate")},40000)
+      setTimeout(function () {gClient.say("3. stop doing b!sweep lobby, but it is inappropriate")},10000)
+      setTimeout(function () {gClient.say("4. dont ban broom after using the command, if you do it, but it is inappropriate")},20000)
    }
    if (msg.a == "b!help"){
       gClient.say("general commands: b!sweep [channel name], b!rules")
