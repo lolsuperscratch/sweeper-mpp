@@ -2,7 +2,7 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://www.multiplayerpiano.com:443");
-var defaultChannel = "Sweep Center";
+var defaultChannel = "lobby";
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
@@ -66,19 +66,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
    }
-   if (message.content.split(' ')[0] == "b!ban" && message.author.username == "=bighapp=") {
-     
-     banned.push(msg.a.split(' ')[1])
-     message.channel.send("sucessfully banned in multiplayer piano")
-     
-   }
-    
-   if (message.content.split(' ')[0] == "b!default" && message.author.username == "=bighapp=") {
-     message.channel.send('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
-     defaultChannel = msg.a.split(' ').slice(1).join(' ')
-     gClient.setChannel(defaultChannel)
-     
-   }
+   
    })
 
 bot.on('ready',function(){
