@@ -9,9 +9,10 @@ var ex = 0;
 var ey = 0;
 var banned = [];
 var issweeping = false;
+var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot']
 setInterval(function (){},100)
 setInterval(function (){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}gClient.moveMouse(ex,ey);if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
-setInterval(function (){if (!issweeping){gClient.say('Want to sweep with any channels? you can use b!sweep [channel name]')}},1000000)
+setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
