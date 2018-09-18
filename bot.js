@@ -19,8 +19,8 @@ gClient.on('a',function(msg){
    if (msg.a == "b!rules"){
       gClient.say("1. do not spam b!sweep. but that is too annoying")
       gClient.say("2. after you join other channels, make sure use b!sweep [channel name you joined] in lobby")
-      setTimeout(function () {gClient.say("3. stop doing b!sweep lobby, but it is inappropriate")},50000)
-      setTimeout(function () {gClient.say("4. dont ban broom after using the command, if you do it, but it is inappropriate")},60000)
+      setTimeout(function () {gClient.say("3. stop doing b!sweep lobby, but it is inappropriate")},30000)
+      setTimeout(function () {gClient.say("4. dont ban broom after using the command, if you do it, but it is inappropriate")},40000)
    }
    if (msg.a == "b!help"){
       gClient.say("general commands: b!sweep [channel name], b!rules")
