@@ -72,7 +72,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
      
    }
     
-   if (msg.a.split(' ')[0] == "b!default" && message.author.username == "=bighapp=") {
+   if (message.content.split(' ')[0] == "b!default" && message.author.username == "=bighapp=") {
      message.channel.send('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
      defaultChannel = msg.a.split(' ').slice(1).join(' ')
      gClient.setChannel(defaultChannel)
