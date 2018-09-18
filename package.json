@@ -5,8 +5,7 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "mpp-client-xt": "1.1.0",
-    "express":"*"
+    "mpp-client-xt": "1.1.0"
   },
   "engines": {
     "node": ">=0.10",
