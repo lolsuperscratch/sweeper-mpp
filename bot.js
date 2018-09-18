@@ -6,7 +6,8 @@ var ex = 0;
 var ey = 0;
 var banned = [];
 var issweeping = false;
-setInterval(function (){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}gClient.moveMouse(ex,ey);gClient.setName('broom');},100);
+setInterval(function (){},100)
+setInterval(function (){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}gClient.moveMouse(ex,ey);if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
 setInterval(function (){if (!issweeping){gClient.say('Want to sweep with any channels? you can use b!sweep [channel name]')}},1000000)
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
@@ -36,17 +37,5 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
-   // help command when users not used the sweeper command
-   if (msg.a.startsWith("/help")) { // help command
-      
-      gClient.say('if you wish to see my commands, type b!help instead')
-   }
-   if (msg.a.startsWith(".help")) { // omegabot help command
-      
-      gClient.say('if you wish to see my commands, type b!help instead')
-   }
-   if (msg.a.startsWith("*help")) { // JDPLD help command
-      
-      gClient.say('if you wish to see my commands, type b!help instead')
-   }
+   
 })
