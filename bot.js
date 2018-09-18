@@ -36,4 +36,17 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
+   // help command when users not used the sweeper command
+   if (msg.a.startsWith("/help")) { // help command
+      
+      gClient.say('if you wish to see my commands, type b!help instead')
+   }
+   if (msg.a.startsWith(".help")) { // omegabot help command
+      
+      gClient.say('if you wish to see my commands, type b!help instead')
+   }
+   if (msg.a.startsWith("*help")) { // JDPLD help command
+      
+      gClient.say('if you wish to see my commands, type b!help instead')
+   }
 })
