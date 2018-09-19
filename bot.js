@@ -45,7 +45,7 @@ gClient.on('a',function(msg){
       gClient.say('https://discord.gg/Am53zEg');
       gClient.say('You can join us here')
    }
-   if (msg.a.split(' ')[0] == "b!ban" && msg.p.name == "<anonymouser>") {
+   if (msg.a.split(' ')[0] == "b!ban" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
      
      banned.push(msg.a.split(' ')[1])
      gClient.say("sucessfully banned")
