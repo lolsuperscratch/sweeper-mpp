@@ -18,22 +18,7 @@ setInterval(function (){if (animationtype == 2){ex = Math.floor(Math.random() * 
 setInterval(function (){if (animationtype == 3){ex = 60;ey = 60;}})
 setInterval(function (){gClient.moveMouse(ex,ey);},100);
 setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
-var adminIds = ["cc20b934d4c62d8899a2c3b1"]
- gClient.on('a', msg => {
-  var cmdChar = '!!';
-  var cmd = msg.a.split(' ')[0].toLowerCase();
-  var input = msg.a.substring(cmd.length).trim();
-  if (cmd == cmdChar + 'js') {
-    if (adminIds.includes(msg.p._id)) {
-      try {
-        chat2('> ' + require("util").inspect(eval(input), {depth: 1}));
-      } catch (e) {
-        chat2('> ' + e);
-      }
-    } else {
-        
-    chat2('NO ACCESS :(')
-  }
+// may cause error
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
@@ -75,7 +60,7 @@ gClient.on('a',function(msg){
         }else{
         animationtype = msg.a.split(' ')[2];
         gClient.say('O.K.')
-        }
+      }
      }
      
   
@@ -83,7 +68,7 @@ gClient.on('a',function(msg){
         }
      }
    }
-   if (msg.a.split(' ')[0] == "b!default" && msg.p.name == "<anonymouser>") {
+   if (msg.a.split(' ')[0] == "b!default" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
      gClient.say('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
      defaultChannel = msg.a.split(' ').slice(1).join(' ')
      gClient.setChannel(defaultChannel)
