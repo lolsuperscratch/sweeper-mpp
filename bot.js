@@ -21,7 +21,10 @@ setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.ran
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
-     // banned
+     gClient.say('Sweeping to '+msg.a.split(' ').slice(1).join(' ')+' is now ready to go')
+     issweeping = true;
+     gClient.setChannel(msg.a.split(' ').slice(1).join(' '))
+     setTimeout(function(){gClient.say('Well thats sweeped too much. Bye');gClient.setChannel(defaultChannel);issweeping = false;},50000)
    }
    if (msg.a == "b!rules"){
       gClient.say("1. do not spam commands. but that is too annoying")
