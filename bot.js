@@ -10,6 +10,7 @@ var ey = 0;
 var banned = [];
 var issweeping = false;
 var animationtype = 1;
+var botinvite = "https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot";
 var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot']
 var updatetrack = setInterval(function (){if (gClient.canConnect) {gClient.say('New Update Is Relased, Please Check It');clearInterval(updatetrack)}},100)
 setInterval(function (){if (animationtype == 1){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}}if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
@@ -20,10 +21,7 @@ setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.ran
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
-     gClient.say('Sweeping to '+msg.a.split(' ').slice(1).join(' ')+' is now ready to go')
-     issweeping = true;
-     gClient.setChannel(msg.a.split(' ').slice(1).join(' '))
-     setTimeout(function(){gClient.say('Well thats sweeped too much. Bye');gClient.setChannel(defaultChannel);issweeping = false;},50000)
+     // banned
    }
    if (msg.a == "b!rules"){
       gClient.say("1. do not spam commands. but that is too annoying")
@@ -35,6 +33,14 @@ gClient.on('a',function(msg){
       gClient.say("general commands: b!sweep [channel name], b!rules")
       gClient.say("discord commands: b!discordbot")
       gClient.say("for advanced users only commands: b!prompt [command]")
+   }
+   if (msg.a == "b!discordbot"){
+      gClient.say(botinvite);
+      gClient.say('here is my discord bot ya');
+   }
+   if (msg.a == "b!discord") {
+      gClient.say('https://discord.gg/Am53zEg');
+      gClient.say('You can join us here')
    }
    if (msg.a.split(' ')[0] == "b!ban" && msg.p.name == "<anonymouser>") {
      
@@ -71,7 +77,8 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
-   
+   const bridgechannel = bot.channels.get("491774088822390804");
+   if (!msg.a.startsWith("b!")) {}
 })
 bot.on('message',function (message) {
 if (message.content.split(' ')[0] == "b!sweep") {
@@ -89,7 +96,8 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
    }
-   
+   const bridgechannel = bot.channels.get("491774088822390804");
+   if (!message.content.startsWith("b!") && message.channel == bridgechannel) {gClient.say(`(Discord) <${message.member.user.tag}>: ${message.content}`)}
    })
 
 bot.on('ready',function(){
