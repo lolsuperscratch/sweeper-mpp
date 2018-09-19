@@ -34,7 +34,7 @@ gClient.on('a',function(msg){
    }
    if (msg.a == "b!help"){
       gClient.say("general commands: b!sweep [channel name], b!rules")
-      gClient.say("discord commands: b!discordbot")
+      gClient.say("discord commands: b!discordbot, b!discord")
       gClient.say("for advanced users only commands: b!prompt [command]")
    }
    if (msg.a == "b!discordbot"){
@@ -80,7 +80,7 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
-   const bridgechannel = bot.channels.find("491774088822390804")
+   const bridgechannel = bot.channels.find("491774088822390804");
    if (msg.p._id !== gClient.user._id) {bridgechannel.send(`**<${msg.p.name}>**: ${msg.a}`)}
 })
 bot.on('message',function (message) {
@@ -100,7 +100,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("general commands: b!sweep [channel name], b!rules")
    }
    const bridgechannel = bot.channels.find("491774088822390804")
-   if (message.channel == bridgechannel && message.member.user.tag !== "Broom#9742") {
+   if (message.channel == bridgechannel && message.author !== bot.user) {
       gClient.say(`(Discord) <${message.member.user.tag}>: ${message.content}`)
    }
    })
