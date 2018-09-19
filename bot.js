@@ -63,10 +63,7 @@ gClient.on('a',function(msg){
       }
      }
      
-  
-});
-        }
-     }
+
    }
    if (msg.a.split(' ')[0] == "b!default" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
      gClient.say('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
