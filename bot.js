@@ -9,9 +9,13 @@ var ex = 0;
 var ey = 0;
 var banned = [];
 var issweeping = false;
+var animationtype = 1;
 var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot']
-setInterval(function (){},100)
-setInterval(function (){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}gClient.moveMouse(ex,ey);if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
+var updatetrack = setInterval(function (){if (gClient.canConnect) {gClient.say('New Update Is Relased, Please Check It');clearInterval(updatetrack)}},100)
+setInterval(function (){if (animationtype == 1){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}}if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
+setInterval(function (){if (animationtype == 2){ex = Math.floor(Math.random() * 100);ey = Math.floor(Math.random() * 100);}},100);
+setInterval(function (){if (animationtype == 3){ex = 60;ey = 60;}})
+setInterval(function (){gClient.moveMouse(ex,ey);},100);
 setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
@@ -29,6 +33,8 @@ gClient.on('a',function(msg){
    }
    if (msg.a == "b!help"){
       gClient.say("general commands: b!sweep [channel name], b!rules")
+      gClient.say("discord commands: b!discordbot")
+      gClient.say("for advanced users only commands: b!prompt [command]")
    }
    if (msg.a.split(' ')[0] == "b!ban" && msg.p.name == "<anonymouser>") {
      
@@ -36,7 +42,24 @@ gClient.on('a',function(msg){
      gClient.say("sucessfully banned")
      
    }
-    
+   if (msg.a.split(' ')[0] == "b!prompt") {
+     if (!msg.a.split(' ')[1]) {gClient.say('How you want to do with broom bot? for example: b!prompt animation 2')}
+     if (msg.a.split(' ')[1] == "animation") {
+        if (!msg.a.split(' ')[2]) {
+           gClient.say('you can type b!prompt animation [number] to animate like cool! (1 - default animation, 2 - crazy, 3 - still)')
+        }else{
+        animationtype = msg.a.split(' ')[2];
+        gClient.say('O.K.')
+        }
+     }
+     if (msg.a.split(' ')[1] == "js") {
+        if (!msg.a.split(' ')[2]) {
+           gClient.say('you can type b!prompt js [script] to run js! but do not try close(), or else you will regert this')
+        }else{
+           try {var fn = new Function(msg.a.split(' ').slice(1).join(' '));fn.call();gClient.say('O.K.')} catch(e) {gClient.say('Ouch! here is error: '+e.message)}
+        }
+     }
+   }
    if (msg.a.split(' ')[0] == "b!default" && msg.p.name == "<anonymouser>") {
      gClient.say('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
      defaultChannel = msg.a.split(' ').slice(1).join(' ')
