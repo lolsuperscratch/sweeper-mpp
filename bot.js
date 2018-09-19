@@ -80,8 +80,7 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
-   const bridgechannel = bot.channels.find("491774088822390804");
-   if (msg.p._id !== gClient.user._id) {bridgechannel.send(`**<${msg.p.name}>**: ${msg.a}`)}
+   
 })
 bot.on('message',function (message) {
 if (message.content.split(' ')[0] == "b!sweep") {
@@ -99,10 +98,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
    }
-   const bridgechannel = bot.channels.find("491774088822390804")
-   if (message.channel == bridgechannel && message.author !== bot.user) {
-      gClient.say(`(Discord) <${message.member.user.tag}>: ${message.content}`)
-   }
+   
    })
 
 bot.on('ready',function(){
