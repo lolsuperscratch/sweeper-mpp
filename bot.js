@@ -18,6 +18,22 @@ setInterval(function (){if (animationtype == 2){ex = Math.floor(Math.random() * 
 setInterval(function (){if (animationtype == 3){ex = 60;ey = 60;}})
 setInterval(function (){gClient.moveMouse(ex,ey);},100);
 setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
+var adminIds = ["cc20b934d4c62d8899a2c3b1"]
+ gClient.on('a', msg => {
+  var cmdChar = '!!';
+  var cmd = msg.a.split(' ')[0].toLowerCase();
+  var input = msg.a.substring(cmd.length).trim();
+  if (cmd == cmdChar + 'js') {
+    if (adminIds.includes(msg.p._id)) {
+      try {
+        chat2('> ' + require("util").inspect(eval(input), {depth: 1}));
+      } catch (e) {
+        chat2('> ' + e);
+      }
+    } else {
+        
+    chat2('NO ACCESS :(')
+  }
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
@@ -61,11 +77,9 @@ gClient.on('a',function(msg){
         gClient.say('O.K.')
         }
      }
-     if (msg.a.split(' ')[1] == "js") {
-        if (!msg.a.split(' ')[2]) {
-           gClient.say('you can type b!prompt js [script] to run js! but do not try close(), or else you will regert this')
-        }else{
-           try {var fn = new Function(msg.a.split(' ').slice(1).join(' '));fn.call();gClient.say('O.K.')} catch(e) {gClient.say('Ouch! here is error: '+e.message)}
+     
+  
+});
         }
      }
    }
