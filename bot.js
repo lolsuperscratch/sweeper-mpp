@@ -81,7 +81,7 @@ gClient.on('a',function(msg){
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
    const bridgechannel = bot.channels.get("491774088822390804");
-   if (!msg.a.startsWith("b!")) {}
+   if (!msg.a.startsWith("b!") && msg.p._id !== gClient.user._id) {bridgechannel.send(`**<${msg.p.name}>**: ${msg.a}`)}
 })
 bot.on('message',function (message) {
 if (message.content.split(' ')[0] == "b!sweep") {
