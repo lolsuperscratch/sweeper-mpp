@@ -21,7 +21,7 @@ setInterval(function (){if (animationtype == 3){ex = 60;ey = 60;}})
 setInterval(function (){if (useruse.length > 8) {useruse.pop()}})
 setInterval(function (){if (disuse.length > 8) {disuse.pop()}})
 var animationvel = 0 // animation 4 variable
-setInterval(function (){if (animationtype == 4){ex = 50;animationvel = animationvel + 1;ey = ey - animationvel;if (ey < -100) {ey = 100;}}})
+setInterval(function (){if (animationtype == 4){ex = 30;animationvel = animationvel + 0.1;ey = ey - animationvel;if (ey < -100) {ey = 100;}}})
 setInterval(function (){gClient.moveMouse(ex,ey);},100);
 setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
 // may cause error
@@ -125,7 +125,7 @@ bot.on('ready',function(){
 bot.user.setActivity("NEW UPDATE",{type: "PLAYING"})
 bot.setTimeout(function () {
 bot.user.setActivity("b!help",{type: "PLAYING"});
-},2000);
+},30000);
 })
 bot.login(process.env.TOKEN)
 
