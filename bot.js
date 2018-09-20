@@ -10,12 +10,18 @@ var ey = 0;
 var banned = [];
 var issweeping = false;
 var animationtype = 1;
+var useruse = []; // only users who can use the command will be added
+var disuse = [];
 var botinvite = "https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot";
-var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot']
+var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot','Join the discord server to get some cool things https://discord.gg/Am53zEg','Host for free on https://github.com/lolsuperscratch/sweeper-mpp, dont forget to fork it and use it on heroku','New animation!: b!prompt animation 4']
 var updatetrack = setInterval(function (){if (gClient.canConnect) {gClient.say('New Update Is Relased, Please Check It');clearInterval(updatetrack)}},100)
 setInterval(function (){if (animationtype == 1){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}}if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
 setInterval(function (){if (animationtype == 2){ex = Math.floor(Math.random() * 100);ey = Math.floor(Math.random() * 100);}},100);
 setInterval(function (){if (animationtype == 3){ex = 60;ey = 60;}})
+setInterval(function (){if (useruse.length > 8) {useruse.pop()}})
+setInterval(function (){if (disuse.length > 8) {disuse.pop()}})
+var animationvel = 0 // animation 4 variable
+setInterval(function (){if (animationtype == 4){ex = 50;animationvel = animationvel + 1;ey = ey - animationvel;if (ey < -100) {ey = 100;}}})
 setInterval(function (){gClient.moveMouse(ex,ey);},100);
 setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.random()*sayment.length)])}},1000000)
 // may cause error
@@ -36,7 +42,7 @@ gClient.on('a',function(msg){
    if (msg.a == "b!help"){
       gClient.say("general commands: b!sweep [channel name], b!rules")
       gClient.say("discord commands: b!discordbot, b!discord")
-      gClient.say("for advanced users only commands: b!prompt [command]")
+      gClient.say("for advanced users only commands: b!prompt [command], b!discorduses")
    }
    if (msg.a == "b!discordbot"){
       gClient.say(botinvite);
@@ -45,6 +51,10 @@ gClient.on('a',function(msg){
    if (msg.a == "b!discord") {
       gClient.say('https://discord.gg/Am53zEg');
       gClient.say('You can join us here')
+   }
+   if (msg.a == "b!discorduses") {
+      gClient.say(disuse.join(', '));
+      gClient.say('(discord)')
    }
    if (msg.a.split(' ')[0] == "b!ban" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
      
@@ -56,8 +66,9 @@ gClient.on('a',function(msg){
      if (!msg.a.split(' ')[1]) {gClient.say('How you want to do with broom bot? for example: b!prompt animation 2')}
      if (msg.a.split(' ')[1] == "animation") {
         if (!msg.a.split(' ')[2]) {
-           gClient.say('you can type b!prompt animation [number] to animate like cool! (1 - default animation, 2 - crazy, 3 - still)')
+           gClient.say('you can type b!prompt animation [number] to animate like cool! (1 - default animation, 2 - crazy, 3 - still, 4 - falling)')
         }else{
+        animationvel = 0;
         animationtype = msg.a.split(' ')[2];
         gClient.say('O.K.')
       }
@@ -76,9 +87,17 @@ gClient.on('a',function(msg){
       
       gClient.say('well, goodbye '+msg.p.name+'. you are banned from owner')
    }
-   
+   // add if user uses the command for multiplayer piano
+   if (msg.a.startsWith("b!")) {
+      useruse.push(`${msg.p.name} -> ${msg.a}`)
+      
+   }
 })
 bot.on('message',function (message) {
+   if (message.content.startsWith("b!")) {
+      disuse.push(`${message.member.user.tag} -> ${message.content}`)
+      
+   }
 if (message.content.split(' ')[0] == "b!sweep") {
      message.channel.send('Sweeping to '+message.content.split(' ').slice(1).join(' ')+' is now ready to go')
      issweeping = true;
@@ -93,14 +112,20 @@ if (message.content.split(' ')[0] == "b!sweep") {
    }
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
+      message.channel.send("mpp commands: b!useruses")
+   }
+   if (message.content == "b!useruses") {
+      message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
    }
    
    })
+   
 
 bot.on('ready',function(){
-bot.user.setActivity("b!help", {
-  type: "PLAYING"
-});
+bot.user.setActivity("NEW UPDATE",{type: "PLAYING"})
+bot.setTimeout(function () {
+bot.user.setActivity("b!help",{type: "PLAYING"});
+},2000);
 })
 bot.login(process.env.TOKEN)
 
