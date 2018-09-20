@@ -123,9 +123,9 @@ if (message.content.split(' ')[0] == "b!sweep") {
 
 bot.on('ready',function(){
 bot.user.setActivity("NEW UPDATE",{type: "PLAYING"})
-bot.setTimeout(function () {
+bot.setInterval(function () {
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
-},30000);
+},20000);
 })
 bot.login(process.env.TOKEN)
 
