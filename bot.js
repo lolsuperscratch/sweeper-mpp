@@ -122,10 +122,10 @@ if (message.content.split(' ')[0] == "b!sweep") {
    
 
 bot.on('ready',function(){
-
+bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
 bot.setInterval(function () {
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
-},300);
+},30000);
 })
 bot.login(process.env.TOKEN)
 
