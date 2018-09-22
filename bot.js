@@ -2,10 +2,15 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://www.multiplayerpiano.com:443");
-var defaultChannel = "Broom Bot (with discord)"; // if the lobby is full, change the channel
+var defaultChannel = "Broom Bot!"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
+var emotes = ["☺️","🤔","🙂","😕","👻","🤗","😂"]
+var helperenabled = true;
+var guildhelper = "490335779403333634"; // replace the string to your user id, not others
+var supportguild = bot.guilds.find("491745908539654154")
+var guildinvites = [];
 const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
 var banned = [];
@@ -115,9 +120,27 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("general commands: b!sweep [channel name], b!rules")
       message.channel.send("mpp commands: b!useruses")
       message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
+      message.channel.send("helper commands: b!sendhelper [reason] - send the helper but it will help you")
    }
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
+   }
+   if (message.content.split(' ')[0] == "b!userchannel") {
+      if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to make user channels! https://discord.gg/Am53zEg')
+      var createdchannel = message.guild.createChannel(message.content.split(' ').slice(1).join('-').toLowerCase(),'text',[{id:"493120256542375936"}],'broom user channel')
+      
+      
+      message.channel.send(`${message.author}, ${createdchannel}`)
+      
+   }
+   if (message.content == "b!togglehelper" && message.member.id == guildhelper) {
+      if (helperenabled) {
+          helperenabled = false;
+          message.channel.send('helper is disabled, users dont help you')
+      } else {
+          helperenabled = true;
+          message.channel.send('helper is enabled, users will help you')
+      }
    }
    if (!message.author.bot && message.channel.id == "492845722073300992" && !message.content.startsWith('b!')) {
     gClient.say(`(Discord) ${message.author.username}: ${message.content}`);
@@ -143,12 +166,42 @@ if (message.content.split(' ')[0] == "b!sweep") {
       
        
    }
+   if (message.content.split(' ')[0] == "b!sendhelper"){
+      if (!helperenabled) return message.channel.send(`${bot.users.find(guildhelper).username} disabled for help. you can't help anything you want`)
+      if (message.guild.members.find(guildhelper)) return message.channel.send(`${message.guild.members.find(guildhelper).username} is already in guild!`)
+      message.channel.send('thanks for sending the helper, we will help for you')
+      var invitehelp = message.channel.createInvite({maxAge:0,maxUses:0},'broom auto-invite').catch(err => {
+           message.channel.send("i can't invite now. please check the bot")
+      })
+      message.guild.members.find(guildhelper).send(message.author.username+' ```'+message.content.split(' ').slice(1).join(' ')+'``` '+invitehelp.toString()+' if you dont like being to help. you can disable them on b!togglehelper')
+          
+   }
    })
 
 gClient.on('a',function (msg) {
    if (msg.p._id !== gClient.getOwnParticipant()._id) {
     hook.send(`**${msg.p.name}**: ${msg.a}`,{username:gClient.channel._id});
    }
+})
+gClient.on('participant added',function (part) {
+   if (part._id !== gClient.getOwnParticipant()._id) {
+    hook.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *${part.name} joined*`,{username:gClient.channel._id});
+   }
+})
+gClient.on('participant removed',function (part) {
+   if (part._id !== gClient.getOwnParticipant()._id) {
+    hook.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *${part.name} left*`,{username:gClient.channel._id});
+   }
+})
+gClient.on('disconnect',function () {
+   
+    hook.send(`**Disconnected**`);
+   
+})
+gClient.on('connect',function () {
+   
+    hook.send(`**Connected**`);
+   
 })
 
 bot.on('ready',function(){
@@ -158,6 +211,7 @@ bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAY
    } else {
       bot.user.setActivity(`b!help | MPP has been disconnected or banned from mpp`,{type: "PLAYING"});
    }
+   
 bot.setInterval(function () {
 if (gClient.canConnect) {
       
