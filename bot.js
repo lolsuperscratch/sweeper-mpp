@@ -113,19 +113,40 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
       message.channel.send("mpp commands: b!useruses")
+      message.channel.send("bridge commands: b!responsecmd [command for bots]")
    }
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
    }
-   
+   if (message.author !== client.user && message.channel === bot.channels.find("492845722073300992") && !message.content.startsWith('b!')) {
+    gClient.say(`(Discord) ${message.member.displayName}: ${message.content}`);
+}
+   if (message.content.split(' ')[0] == "b!responsecmd" && message.channel === bot.channels.find("492845722073300992")) {
+       message.react('👌')
+       gClient.say(`(Discord) ${message.member.displayName}`);
+       gClient.say(`${message.content.split(' ').slice(1).join(' ')}`);
+   }
+   if (message.content.split(' ')[0] == "b!responsecmd" && message.channel !== bot.channels.find("492845722073300992")) {
+      message.react('🚫')
+   }
    })
-   
+      // WebHook Bridge
+const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
+
+gClient.on('a',function (msg) {
+   if (msg.p._id !== gClient.getOwnParticipant()._id) {
+    hook.send(`**${msg.p.name}**: ${msg.a}`,{username:gClient.channel._id});
+   }
+})
 
 bot.on('ready',function(){
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
 bot.setInterval(function () {
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
 },30000);
+
+
+
 })
 bot.login(process.env.TOKEN)
 
