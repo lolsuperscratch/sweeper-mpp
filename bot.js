@@ -118,7 +118,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
    }
-   if (message.author !== bot.user && message.channel.id == "492845722073300992" && !message.content.startsWith('b!')) {
+   if (!message.author.bot && message.channel.id == "492845722073300992" && !message.content.startsWith('b!')) {
     gClient.say(`(Discord) ${message.author.username}: ${message.content}`);
 }
    if (message.content.split(' ')[0] == "b!responsecmd" && message.channel.id == "492845722073300992") {
@@ -130,8 +130,6 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.react('🚫')
    }
    })
-      // WebHook Bridge
-const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 
 gClient.on('a',function (msg) {
    if (msg.p._id !== gClient.getOwnParticipant()._id) {
