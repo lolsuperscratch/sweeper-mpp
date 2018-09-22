@@ -128,16 +128,16 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content.split(' ')[0] == "b!userchannel") {
       if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to make user channels! https://discord.gg/Am53zEg')
       var createdchannel = message.guild.createChannel(message.content.split(' ').slice(1).join('-').toLowerCase(),'text',[{id:"493120256542375936"}],'broom user channel')
-      userchannels.push(`${createdchannel.id}^${message.author.id}`)
-      
-      message.channel.send(`${message.author}, ${createdchannel}`)
+      userchannels.push(`${createdchannel.name}^${message.author.username}`)
+      createdchannel.setParent('493120256542375936')
+      createdchannel.setTopic('Owner: '+message.author.username)
       
    }
    if (message.content.split(' ')[0] == "b!deletechannel") {
       if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to delete user channels! https://discord.gg/Am53zEg')
       var found = false;
       for (var c = 0;c < userchannels.length;c++) {
-          if (userchannels[c].split('^')[0] == message.channel.id && userchannels[c].split('^')[1] == message.author.id) {
+          if (userchannels[c].split('^')[0] == message.channel.name && userchannels[c].split('^')[1] == message.author.username) {
               found = true;
           }
       }
