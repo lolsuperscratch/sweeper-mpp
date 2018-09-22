@@ -120,7 +120,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("general commands: b!sweep [channel name], b!rules")
       message.channel.send("mpp commands: b!useruses")
       message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
-      message.channel.send("helper commands: b!sendhelper [reason] - send the helper but it will help you")
+      message.channel.send("user commands: b!userchannel [name] - if you use spacebar, it will add dash on it")
    }
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
