@@ -127,7 +127,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
        gClient.say(`(Discord) ${message.member.displayName}`);
        gClient.say(`${message.content.split(' ').slice(1).join(' ')}`);
    }
-   if (message.content.split(' ')[0] == "b!responsecmd" && message.channel.id == "492845722073300992") {
+   if (message.content.split(' ')[0] == "b!responsecmd" && message.channel.id !== "492845722073300992") {
       message.react('🚫')
    }
    })
