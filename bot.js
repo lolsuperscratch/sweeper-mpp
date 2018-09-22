@@ -9,7 +9,7 @@ var ex = 0;
 var emotes = ["☺️","🤔","🙂","😕","👻","🤗","😂"]
 var helperenabled = true;
 var guildhelper = "490335779403333634"; // replace the string to your user id, not others
-var supportguild = bot.guilds.find("491745908539654154")
+
 var guildinvites = [];
 const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
