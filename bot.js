@@ -6,6 +6,7 @@ var defaultChannel = "lobby";
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
+const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
 var banned = [];
 var issweeping = false;
