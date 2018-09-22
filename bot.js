@@ -2,14 +2,14 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://www.multiplayerpiano.com:443");
-var defaultChannel = "Broom Bot!"; // if the lobby is full, change the channel
+var defaultChannel = "lobby"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
 var emotes = ["☺️","🤔","🙂","😕","👻","🤗","😂"]
 var helperenabled = true;
 var guildhelper = "490335779403333634"; // replace the string to your user id, not others
-
+var userchannels = [];
 var guildinvites = [];
 const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
@@ -120,7 +120,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("general commands: b!sweep [channel name], b!rules")
       message.channel.send("mpp commands: b!useruses")
       message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
-      message.channel.send("user commands: b!userchannel [name] - if you use spacebar, it will add dash on it")
+      message.channel.send("user commands: b!userchannel [name] - if you use spacebar, it will add dash on it, b!deletechannel - delete your targeted user channel")
    }
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
@@ -128,10 +128,21 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content.split(' ')[0] == "b!userchannel") {
       if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to make user channels! https://discord.gg/Am53zEg')
       var createdchannel = message.guild.createChannel(message.content.split(' ').slice(1).join('-').toLowerCase(),'text',[{id:"493120256542375936"}],'broom user channel')
-      
+      userchannels.push(`${createdchannel.id}^${message.author.id}`)
       
       message.channel.send(`${message.author}, ${createdchannel}`)
       
+   }
+   if (message.content.split(' ')[0] == "b!deletechannel") {
+      if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to delete user channels! https://discord.gg/Am53zEg')
+      var found = false;
+      for (var c = 0;c < userchannels.length;c++) {
+          if (userchannels[c].split('^')[0] == message.channel.id && userchannels[c].split('^')[1] == message.author.id) {
+              found = true;
+          }
+      }
+      if (!found) return message.react('🚫');
+      message.channel.delete()
    }
    if (message.content == "b!togglehelper" && message.member.id == guildhelper) {
       if (helperenabled) {
@@ -166,16 +177,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       
        
    }
-   if (message.content.split(' ')[0] == "b!sendhelper"){
-      if (!helperenabled) return message.channel.send(`${bot.users.find(guildhelper).username} disabled for help. you can't help anything you want`)
-      if (message.guild.members.find(guildhelper)) return message.channel.send(`${message.guild.members.find(guildhelper).username} is already in guild!`)
-      message.channel.send('thanks for sending the helper, we will help for you')
-      var invitehelp = message.channel.createInvite({maxAge:0,maxUses:0},'broom auto-invite').catch(err => {
-           message.channel.send("i can't invite now. please check the bot")
-      })
-      message.guild.members.find(guildhelper).send(message.author.username+' ```'+message.content.split(' ').slice(1).join(' ')+'``` '+invitehelp.toString()+' if you dont like being to help. you can disable them on b!togglehelper')
-          
-   }
+   
    })
 
 gClient.on('a',function (msg) {
