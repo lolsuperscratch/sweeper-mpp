@@ -118,7 +118,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
    }
-   if (message.author !== client.user && message.channel === bot.channels.find("492845722073300992") && !message.content.startsWith('b!')) {
+   if (message.author !== bot.user && message.channel === bot.channels.find("492845722073300992") && !message.content.startsWith('b!')) {
     gClient.say(`(Discord) ${message.member.displayName}: ${message.content}`);
 }
    if (message.content.split(' ')[0] == "b!responsecmd" && message.channel === bot.channels.find("492845722073300992")) {
