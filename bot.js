@@ -129,7 +129,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       if (message.guild.id !== "491745908539654154") return message.author.send('You must join our guild in order to make user channels! https://discord.gg/Am53zEg')
       var createdchannel = message.guild.createChannel(message.content.split(' ').slice(1).join('-').toLowerCase(),'text',[{id:"493120256542375936"}],'broom user channel')
       userchannels.push(`${createdchannel.name}^${message.author.username}`)
-      createdchannel.setTopic('Owner: '+message.author.username)
+      
       
    }
    if (message.content.split(' ')[0] == "b!deletechannel") {
