@@ -119,7 +119,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
    }
    if (message.author !== bot.user && message.channel.id == "492845722073300992" && !message.content.startsWith('b!')) {
-    gClient.say(`(Discord) ${message.member.displayName}: ${message.content}`);
+    gClient.say(`(Discord) ${message.author.username}: ${message.content}`);
 }
    if (message.content.split(' ')[0] == "b!responsecmd" && message.channel.id == "492845722073300992") {
        message.react('👌')
