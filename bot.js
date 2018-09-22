@@ -2,7 +2,7 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://www.multiplayerpiano.com:443");
-var defaultChannel = "lobby";
+var defaultChannel = "lobby"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
@@ -114,7 +114,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
       message.channel.send("mpp commands: b!useruses")
-      message.channel.send("bridge commands: b!responsecmd [command for bots]")
+      message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
    }
    if (message.content == "b!useruses") {
       message.channel.send("User Uses: ```"+useruse.join(', ')+"``` (multiplayer piano)");
@@ -130,6 +130,19 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content.split(' ')[0] == "b!responsecmd" && message.channel.id !== "492845722073300992") {
       message.react('🚫')
    }
+   if (message.content.split(' ')[0] == "b!reconnect" && message.channel.id !== "492845722073300992") {
+      message.react('🚫')
+   }
+   if (message.content.split(' ')[0] == "b!reconnect" && message.channel.id == "492845722073300992") {
+      
+       message.react('👌')
+       gClient.stop();
+       message.channel.send('**reconnecting to mpp**')
+       
+       bot.setTimeout(function () {gClient.start();message.channel.send('**reconnected**');},20000)
+      
+       
+   }
    })
 
 gClient.on('a',function (msg) {
@@ -139,9 +152,19 @@ gClient.on('a',function (msg) {
 })
 
 bot.on('ready',function(){
+   if (gClient.canConnect) {
+      
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
+   } else {
+      bot.user.setActivity(`b!help | MPP has been disconnected or banned from mpp`,{type: "PLAYING"});
+   }
 bot.setInterval(function () {
+if (gClient.canConnect) {
+      
 bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAYING"});
+   } else {
+      bot.user.setActivity(`b!help | MPP has been disconnected or banned from mpp`,{type: "PLAYING"});
+   }
 },30000);
 
 
