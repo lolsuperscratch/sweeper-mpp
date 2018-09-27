@@ -1,7 +1,7 @@
 const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
-var gClient = new Client("ws://www.multiplayerpiano.com:443");
+var gClient = new Client("ws://multiplayerpiano.com:8080");
 var defaultChannel = "Broom Lobby"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
