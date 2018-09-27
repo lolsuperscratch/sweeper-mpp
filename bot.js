@@ -192,7 +192,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
        verifiy = true
        mppid = message.content.split(' ')[1]
        verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *1. Go to ${defaultChannel} in multiplayer piano*`)
-       verauthor.send(emotes[Math.floor(Math.random()*emotes.length)]+' *2. Copy this code:* ``b!discordverifiy '+code+'``')
+       verauthor.send(emotes[Math.floor(Math.random()*emotes.length)]+' *2. Copy this command:* ``b!discordverifiy``')
        verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *2. And paste it to the broom* (if there is problem with verifing, you can send b!cancel)`)
    }
    if (message.content.split(' ')[0] == "b!verifiy" && !verifiy && !message.content.split(' ')[1]) {
@@ -229,7 +229,7 @@ gClient.on('a',function (msg) {
 gClient.on('a',function  (msg) {
      if (msg.a.split(' ')[0] == "b!discordverifiy") {
          if (mppid !== msg.p._id) return gClient.say('You are not in the verifing user! to verifiy, use b!verifiy '+msg.p._id+' on discord')
-         if (msg.a.split(' ')[1] !== code) return gClient.say('Invaild Code');
+         // code is removed and will not work anymore
          mppid = "";
          verifiy = false;
          code = "";
