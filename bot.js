@@ -198,9 +198,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    if (message.content.split(' ')[0] == "b!verifiy" && !verifiy && !message.content.split(' ')[1]) {
        message.delete()
        var createdmessage = message.channel.send('please inculde your multiplayer piano id (_id)')
-       bot.setTimeout(function (){
-          createdmessage.delete()
-       },3000)
+       
    }
    if (message.content.split(' ')[0] == "b!cancel" && verifiy) {
       message.delete()
