@@ -193,7 +193,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
        mppid = message.content.split(' ')[1]
        verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *1. Go to ${defaultChannel} in multiplayer piano*`)
        verauthor.send(emotes[Math.floor(Math.random()*emotes.length)]+' *2. Copy this command:* ``b!discordverifiy``')
-       verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *2. And paste it to the broom* (if there is problem with verifing, you can send b!cancel)`)
+       verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *3. And paste it to the broom* (if there is problem with verifing, you can send b!cancel)`)
    }
    if (message.content.split(' ')[0] == "b!verifiy" && !verifiy && !message.content.split(' ')[1]) {
        message.delete()
