@@ -7,6 +7,12 @@ gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
 var emotes = ["☺️","🤔","🙂","😕","👻","🤗","😂"]
+var verifiy = false; // if the user is verifing, stop users use the command also it can't use that
+var mppid = ""; // user verifing mpp id
+var code = "";
+var verauthor = undefined;
+var verchannel = undefined;
+var vermember = undefined;
 var helperenabled = true;
 var guildhelper = "490335779403333634"; // replace the string to your user id, not others
 var userchannels = [];
@@ -115,10 +121,11 @@ if (message.content.split(' ')[0] == "b!sweep") {
       message.channel.send("2. after you join other channels, make sure use b!sweep [channel name you joined] in "+defaultChannel)
       message.channel.send("3. stop doing b!sweep lobby, but it is inappropriate")
       message.channel.send("4. dont ban broom after using the command, if you do it, but it is inappropriate")
+      message.channel.send("5. Do not abuse or cheat b!cancel when user is verifing! :joy:")
    }
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
-      message.channel.send("mpp commands: b!useruses")
+      message.channel.send("mpp commands: b!useruses, b!verifiy [your multiplayer piano id]")
       message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
       message.channel.send("user commands: b!userchannel [name] - if you use spacebar, it will add dash on it, b!deletechannel - delete your targeted user channel")
    }
@@ -176,13 +183,76 @@ if (message.content.split(' ')[0] == "b!sweep") {
       
        
    }
-   
+   if (message.content.split(' ')[0] == "b!verifiy" && !verifiy && message.content.split(' ')[1]) {
+       message.delete()
+       verauthor = message.author
+       verchannel = message.channel
+       vermember = message.member
+       code = Math.floor(Math.random()*900000000)
+       verifiy = true
+       mppid = message.content.split(' ')[1]
+       verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *1. Go to ${defaultChannel} in multiplayer piano*`)
+       verauthor.send(emotes[Math.floor(Math.random()*emotes.length)]}+' *2. Copy this code:* ``b!discordverifiy '+code+'``')
+       verauthor.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *2. And paste it to the broom* (if there is problem with verifing, you can send b!cancel)`)
+   }
+   if (message.content.split(' ')[0] == "b!verifiy" && !verifiy && !message.content.split(' ')[1]) {
+       message.delete()
+       var createdmessage = message.channel.send('please inculde your multiplayer piano id (_id)')
+       bot.setTimeout(function (){
+          createdmessage.delete()
+       },3000)
+   }
+   if (message.content.split(' ')[0] == "b!cancel" && verifiy) {
+      message.delete()
+       const embed = new Discord.RichEmbed()
+         embed.setTitle('Uh oh!')
+         embed.setColor('RANDOM')
+         embed.setDescription("we're cancelling for you");
+         embed.setAuthor(message.author.username,message.author.avatarURL);
+         message.channel.send(embed)
+         mppid = "";
+         
+         code = "";
+          verauthor = undefined;
+        verchannel = undefined
+        verifiy = false;
+        vermember = undefined;
+   }
    })
 
 gClient.on('a',function (msg) {
    if (msg.p._id !== gClient.getOwnParticipant()._id) {
     hook.send(`**${msg.p.name}**: ${msg.a}`,{username:gClient.channel._id});
    }
+})
+// discord verifiy system to mpp
+gClient.on('a',function  (msg) {
+     if (msg.a.split(' ')[0] == "b!discordverifiy") {
+         if (mppid !== msg.p._id) return gClient.say('You are not in the verifing user! to verifiy, use b!verifiy '+msg.p._id+' on discord')
+         if (msg.a.split(' ')[1] !== code) return gClient.say('Invaild Code');
+         mppid = "";
+         verifiy = false;
+         code = "";
+         const embed = new Discord.RichEmbed()
+         embed.setTitle('Thank you for verifing broom!')
+         embed.setColor('RANDOM')
+         embed.setDescription('hope you enjoy!');
+         embed.setAuthor(verauthor.username,verauthor.avatarURL);
+         verchannel.send(embed)
+         vermember.addRole('494944904280277013')
+         gClient.say('Thank you for verifing!')
+        verauthor = undefined;
+        verchannel = undefined
+        vermember = undefined;
+        
+      
+      
+       
+      
+      
+    
+   
+     }
 })
 gClient.on('participant added',function (part) {
    if (part._id !== gClient.getOwnParticipant()._id) {
