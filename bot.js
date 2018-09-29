@@ -2,10 +2,11 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://multiplayerpiano.com:8080");
-var defaultChannel = "Broom Lobby"; // if the lobby is full, change the channel
+var defaultChannel = "lobby"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
+var joinsenabled = false;
 var emotes = ["☺️","🤔","🙂","😕","👻","🤗","😂"]
 var verifiy = false; // if the user is verifing, stop users use the command also it can't use that
 var mppid = ""; // user verifing mpp id
@@ -253,11 +254,13 @@ gClient.on('a',function  (msg) {
      }
 })
 gClient.on('participant added',function (part) {
+   if (!joinsenabled) return;
    if (part._id !== gClient.getOwnParticipant()._id) {
     hook.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *${part.name} joined*`,{username:gClient.channel._id});
    }
 })
 gClient.on('participant removed',function (part) {
+   if (!joinsenabled) return;
    if (part._id !== gClient.getOwnParticipant()._id) {
     hook.send(`${emotes[Math.floor(Math.random()*emotes.length)]} *${part.name} left*`,{username:gClient.channel._id});
    }
