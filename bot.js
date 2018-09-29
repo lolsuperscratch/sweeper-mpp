@@ -69,7 +69,7 @@ gClient.on('a',function(msg){
       gClient.say(disuse.join(', '));
       gClient.say('(discord)')
    }
-   if (msg.a.split(' ')[0] == "b!ban" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
+   if (msg.a.split(' ')[0] == "b!ban" && msg.p._id == "bd5d18bfa699a08ab12d97f1") {
      
      banned.push(msg.a.split(' ')[1])
      gClient.say("sucessfully banned")
@@ -89,7 +89,7 @@ gClient.on('a',function(msg){
      
 
    }
-   if (msg.a.split(' ')[0] == "b!default" && msg.p._id == "cc20b934d4c62d8899a2c3b1") {
+   if (msg.a.split(' ')[0] == "b!default" && msg.p._id == "bd5d18bfa699a08ab12d97f1") {
      gClient.say('Default Channel set to '+msg.a.split(' ').slice(1).join(' '))
      defaultChannel = msg.a.split(' ').slice(1).join(' ')
      gClient.setChannel(defaultChannel)
