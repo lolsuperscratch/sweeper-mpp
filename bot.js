@@ -2,7 +2,7 @@ const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
 var bot = new Discord.Client()
 var gClient = new Client("ws://multiplayerpiano.com:8080");
-var defaultChannel = "lobby"; // if the lobby is full, change the channel
+var defaultChannel = "broom bot"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
 gClient.start();
 var ex = 0;
@@ -26,7 +26,7 @@ var animationtype = 1;
 var useruse = []; // only users who can use the command will be added
 var disuse = [];
 var botinvite = "https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot";
-var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot','Join the discord server to get some cool things https://discord.gg/Am53zEg','Host for free on https://github.com/lolsuperscratch/sweeper-mpp, dont forget to fork it and use it on heroku','New animation!: b!prompt animation 4']
+var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot','Join the discord server to get some cool things https://discord.gg/Am53zEg','Host for free on https://github.com/lolsuperscratch/sweeper-mpp, dont forget to fork it and use it on heroku']
 var updatetrack = setInterval(function (){if (gClient.canConnect) {gClient.say('New Update Is Relased, Please Check It');clearInterval(updatetrack)}},100)
 setInterval(function (){if (animationtype == 1){ex = ex + 5;if (ex > 100){ex = -100; ey = Math.floor(Math.random() * 100)}}if (issweeping){gClient.setName('broom');}else{gClient.setName('broom [b!help]');}},100);
 setInterval(function (){if (animationtype == 2){ex = Math.floor(Math.random() * 100);ey = Math.floor(Math.random() * 100);}},100);
