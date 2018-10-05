@@ -296,18 +296,7 @@ bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAY
 
 
 })
-var intervaldis = setInterval(function (){if (gClient.channel._id == "test/awkward2"){
-   gClient.stop()
-   hook.send('Disconnected may cause using test/awkward2 is not recommended like bradon')
-   // warn for bridge
-   clearInterval(intervaldis)
-}})
-setInterval(function (){
-   if (gClient.channel._id == "ads") {
-      gClient.setChannel(defaultChannel)
-      gClient.say('stop it')
-   }
-})
+
 bot.login(process.env.TOKEN)
 
 
