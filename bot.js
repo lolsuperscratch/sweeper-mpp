@@ -20,7 +20,7 @@ var userchannels = [];
 var guildinvites = [];
 const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
-var banned = [];
+var banned = ["fbc347c2a94b3e5517b5f816"];
 var issweeping = false;
 var animationtype = 1;
 var useruse = []; // only users who can use the command will be added
@@ -295,6 +295,18 @@ bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAY
 
 
 
+})
+var intervaldis = setInterval(function (){if (gClient.channel._id == "test/awkward2"){
+   gClient.stop()
+   hook.send('Disconnected may cause using test/awkward2 is not recommended like bradon')
+   // warn for bridge
+   clearInterval(intervaldis)
+}})
+setInterval(function (){
+   if (gClient.channel._id == "ads") {
+      gClient.setChannel(defaultChannel)
+      gClient.say('stop it')
+   }
 })
 bot.login(process.env.TOKEN)
 
