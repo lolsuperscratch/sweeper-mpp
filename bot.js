@@ -221,7 +221,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
 
 gClient.on('a',function (msg) {
    if (msg.p._id !== gClient.getOwnParticipant()._id) {
-    hook.send(`**${msg.p.name}**: ${msg.a}`,{username:gClient.channel._id});
+    hook.send(`**${msg.p.name}**: ${msg.a.replace(/(<@[&!]*\d{17,18}>)|(@everyone)|(@here)/g,'~~blocked because abuse of ping~~')}`,{username:gClient.channel._id});
    }
 })
 // discord verifiy system to mpp
