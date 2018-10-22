@@ -1,6 +1,6 @@
 const Client = require('mpp-client-xt');
 const Discord = require('discord.js');
-var bot = new Discord.Client()
+var bot = new Discord.Client({disableEveryone: true})
 var gClient = new Client("ws://multiplayerpiano.com:8080");
 var defaultChannel = "broom bot"; // if the lobby is full, change the channel
 gClient.setChannel(defaultChannel);
@@ -221,7 +221,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
 
 gClient.on('a',function (msg) {
    if (msg.p._id !== gClient.getOwnParticipant()._id) {
-    hook.send(`**${msg.p.name}**: ${msg.a.replace(/(<@[&!]*\d{17,18}>)|(@everyone)|(@here)/g,'~~blocked because abuse of ping~~')}`,{username:gClient.channel._id});
+    hook.send(`**${msg.p.name}**: ${msg.a}`,{username:gClient.channel._id,disableEveryone:true});
    }
 })
 // discord verifiy system to mpp
