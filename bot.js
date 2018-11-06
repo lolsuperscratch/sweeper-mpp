@@ -126,7 +126,7 @@ if (message.content.split(' ')[0] == "b!sweep") {
    }
    if (message.content == "b!help"){
       message.channel.send("general commands: b!sweep [channel name], b!rules")
-      message.channel.send("mpp commands: b!useruses, b!verifiy [your multiplayer piano id]")
+      message.channel.send("mpp commands: b!useruses, b!verifiy [your multiplayer piano id], b!view - you can see who broom is going around in the channels.")
       message.channel.send("bridge commands: b!responsecmd [command for bots], b!reconnect - if not working or just reconnect mpp")
       message.channel.send("user commands: b!userchannel [name] - if you use spacebar, it will add dash on it, b!deletechannel - delete your targeted user channel")
    }
@@ -216,6 +216,24 @@ if (message.content.split(' ')[0] == "b!sweep") {
         verchannel = undefined
         verifiy = false;
         vermember = undefined;
+   }
+   if (message.content.split(' ')[0] == "b!view") {
+      const puppeteer = require('puppeteer');
+
+puppeteer.launch({ args: ['--no-sandbox'] }).then(async browser => {
+  const page = await browser.newPage();
+  await page.goto('http://www.multiplayerpiano.com/'+encodeURIComponent(gClient.channel._id));
+  await page.click('#sound-warning > .submit') // stop appearing sound warning modal
+  // other actions...
+  await page.screenshot({path:"broom-viewer.png"}).then(async a => {
+     var attachment = new Discord.Attachment('broom-viewer.png')
+     message.channel.send(attachment)
+  })
+   
+  await browser.close();
+}).catch(error => {
+  message.channel.send('the error got caught! :warning: ```'+error.message.substring(0,899)+'```')
+});
    }
    })
 
