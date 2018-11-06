@@ -228,9 +228,10 @@ puppeteer.launch({ args: ['--no-sandbox'] }).then(async browser => {
   await page.screenshot({path:"broom-viewer.png"}).then(async a => {
      var attachment = new Discord.Attachment('broom-viewer.png')
      message.channel.send(attachment)
+     await browser.close();
   })
    
-  await browser.close();
+  
 }).catch(error => {
   message.channel.send('the error got caught! :warning: ```'+error.message.substring(0,899)+'```')
 });
