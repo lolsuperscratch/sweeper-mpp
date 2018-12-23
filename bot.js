@@ -20,11 +20,12 @@ var userchannels = [];
 var guildinvites = [];
 const hook = new Discord.WebhookClient(process.env.HOOKID, process.env.HOOKTOKEN);
 var ey = 0;
-var banned = ["fbc347c2a94b3e5517b5f816"];
+var banned = ["fbc347c2a94b3e5517b5f816","79b8c6638cea827959ed7046"];
 var issweeping = false;
 var animationtype = 1;
 var useruse = []; // only users who can use the command will be added
 var disuse = [];
+var autoban = 0
 var botinvite = "https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot";
 var sayment = ['Want to sweep with any channels? you can use b!sweep [channel name]','Join me on my discord bot https://discordapp.com/api/oauth2/authorize?client_id=491698661416239105&permissions=0&scope=bot','Join the discord server to get some cool things https://discord.gg/Am53zEg','Host for free on https://github.com/lolsuperscratch/sweeper-mpp, dont forget to fork it and use it on heroku']
 var updatetrack = setInterval(function (){if (gClient.canConnect) {gClient.say('New Update Is Relased, Please Check It');clearInterval(updatetrack)}},100)
@@ -41,6 +42,13 @@ setInterval(function (){if (!issweeping){gClient.say(sayment[Math.floor(Math.ran
 gClient.on('a',function(msg){
    if (!banned.includes(msg.p._id)) {
    if (msg.a.split(' ')[0] == "b!sweep") {
+       autoban = autoban + 1
+     if (autoban > 4) {
+        autoban = 0;
+        gClient.say('Autobanned.');
+        banned.push(msg.p._id)
+        return;
+     }
      gClient.say('Sweeping to '+msg.a.split(' ').slice(1).join(' ')+' is now ready to go')
      issweeping = true;
      gClient.setChannel(msg.a.split(' ').slice(1).join(' '))
@@ -112,6 +120,8 @@ bot.on('message',function (message) {
       
    }
 if (message.content.split(' ')[0] == "b!sweep") {
+   
+    
      message.channel.send('Sweeping to '+message.content.split(' ').slice(1).join(' ')+' is now ready to go')
      issweeping = true;
      gClient.setChannel(message.content.split(' ').slice(1).join(' '))
@@ -315,7 +325,9 @@ bot.user.setActivity(`b!help | ${bot.guilds.array().length} guilds`,{type: "PLAY
 
 
 })
-
+setInterval(function (){
+   autoban = 0;
+},30000)
 bot.login(process.env.TOKEN)
 
 
